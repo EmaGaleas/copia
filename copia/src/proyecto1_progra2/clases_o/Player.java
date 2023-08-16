@@ -4,16 +4,12 @@
  */
 package proyecto1_progra2.clases_o;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-
 public class Player {
     private static Player instancia = new Player();//var static, singleton acceso global para no crear insatnica cada vex
     private info[] registro;//¿se podra arraylist?
 
     private Player() {
-        registro=new info[20];
+        registro=new info[10];
     }
 
     public static Player getInstancia() {
@@ -46,8 +42,7 @@ public class Player {
         if (buscarUsername(name)==-1) {//npo existe en array
             int indice=disponible();
             if (indice!=-1 && password.length()>=5) {//disponibilidad
-                Date fechaCreacion = obtenerHoraUbi();
-                registro[indice] = new info(name, password, fechaCreacion);
+                registro[indice]=new info(name, password);
                 return true;
             } else {
                 return false;//no se agrega por arreglo lleno o tamaño contra
@@ -90,38 +85,6 @@ public class Player {
             return false;
         }
     }
-     public String obtenerContraseña(String name) {
-        int index = buscarUsername(name);
-        if (index != -1) {
-            info user = registro[index];
-            return user.getPassword();
-        } else {
-            return null;
-        }
-    }
-     public static Date obtenerHoraUbi() {
-        Calendar cal=Calendar.getInstance();
-        return cal.getTime();
-     }
-    public Date obtenerFechaCreacion(String name) {
-        int index = buscarUsername(name);
-        if (index != -1) {
-            info user = registro[index];
-            return user.getFechaCreada();
-        } else {
-            return null;
-        }
-    }
-    public boolean oponente(String username) {
-        for (info user : registro) {
-            if (user != null && !user.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false; 
-    }
-    public info[] getArregloPersonas() {
-        return Arrays.copyOf(registro, 19);
-    }
 
 }
+
